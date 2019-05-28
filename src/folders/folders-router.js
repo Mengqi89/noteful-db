@@ -8,16 +8,13 @@ const jsonParser = express.json();
 
 foldersRouter
   .route('/')
-  // .get((req, res, next) => {
-  //   const knexInstance = req.app.get('db');
-  //   FoldersService.getAllFolders(knexInstance)
-  //     .then(folders => {
-  //       res.json(folders);
-  //     })
-  //     .catch(next);
-  // })
   .get((req, res, next) => {
-    res.send('getting all folders')
+    const knexInstance = req.app.get('db');
+    FoldersService.getAllFolders(knexInstance)
+      .then(folders => {
+        res.json(folders);
+      })
+      .catch(next);
   })
   .post(jsonParser, (req, res, next) => {
     const knexInstance = req.app.get('db');
